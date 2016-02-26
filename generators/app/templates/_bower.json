@@ -1,0 +1,25 @@
+{
+  "name": "<%=bower_name%>",
+  "version": "0.0.0",
+  "title": "<%=bower_title%>",
+  "appPath": "src",
+  "description": "<%=bower_desc%>",
+  "homepage": "<%=bower_url%>",
+  "author": {
+    "name": "<%=full_name%>"
+  },
+  "dependencies": {
+  },
+  "ignore": [
+    "/*.*",
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "app/bower_components",
+    "test",
+    "tests"
+  ],
+  "authors": [
+    "<%=full_name%> <%=email%>"
+  ]
+}

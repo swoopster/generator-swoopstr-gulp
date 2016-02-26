@@ -26,6 +26,7 @@
     "gulp-json-editor": "^2.2.1",
     "gulp-rename": "^1.2.2",
     "gulp-tag-version": "^1.3.0",
+    "mkdirp": "^0.5.1",
     "yargs": "^4.2.0",
     "yeoman-generator": "^0.21.1",
     "yosay": "^1.0.2"
@@ -52,5 +53,5 @@
     "prepublish": "gulp prepublish",
     "test": "gulp"
   },
-  "private": true
+  "private": false
 }

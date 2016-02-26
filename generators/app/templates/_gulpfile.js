@@ -1,6 +1,5 @@
 'use strict';
 
-var fs = require('fs');
 var gulp = require('gulp');
 var argv = require('yargs').argv;
 var rename = require('gulp-rename');
