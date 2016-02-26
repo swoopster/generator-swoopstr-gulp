@@ -14,7 +14,7 @@ module.exports = yeoman.generators.Base.extend({
     var prompts = [{
       name: 'bowerTitle',
       message: 'What is your package\'s title?',
-      default: this.config.get('context') ? this.config.get('context')['bower_title'] : undefined
+      default: this.config.get('context') ? this.config.get('context')['bower_title'] : this.appname
     }, {
       name: 'bowerDesc',
       message: 'What is your package description?',
@@ -33,6 +33,12 @@ module.exports = yeoman.generators.Base.extend({
         name: 'email',
         message: 'What\'s your email address?',
         default: this.config.get('context') ? this.config.get('context')['email'] : undefined
+      },
+      {
+        name: "framework",
+        type: 'list',
+        message: 'choose used frameworks',
+        choices: ['AngularJs']
       }];
 
     this.prompt(prompts, function(props) {
@@ -42,6 +48,7 @@ module.exports = yeoman.generators.Base.extend({
       this.bowerURL = props.bowerURL;
       this.fullName = props.fullName;
       this.email = props.email;
+      this.frameworks = props.framework;
 
       done();
     }.bind(this));
@@ -54,7 +61,6 @@ module.exports = yeoman.generators.Base.extend({
       this.destinationPath('gulpfile.js')
     );
     this.copy("_.bowerrc", '.bowerrc');
-    this.copy("_karma.conf.js", 'karma.conf.js');
 
     mkdirp.sync(this.destinationPath("src/"));
     mkdirp.sync(this.destinationPath("tests/"));
@@ -81,10 +87,12 @@ module.exports = yeoman.generators.Base.extend({
     }
     this.installDependencies();
 
-    var dependencies = [
-      'karma','karma-jasmine', 'karma-phantomjs-launcher'
-    ];
+  },
 
-    this.npmInstall(dependencies, {saveDev: true});
+  invokeSubGenerators: function() {
+    if(typeof this.frameworks !== 'undefined'){
+      this.invokeSubGenerators('swoopstr-gulp:karma', {nested: true, appName: this.appName}).withArguments({'frameworks': this.frameworks})
+    }
   }
+
 });
