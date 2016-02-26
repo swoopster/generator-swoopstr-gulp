@@ -21,7 +21,7 @@
     "gulp-json-editor": "^2.2.1",
     "gulp-rename": "^1.2.2",
     "gulp-tag-version": "^1.3.0",
-    "yargs": "^4.2.0",
+    "yargs": "^4.2.0"
   },
   "repository": "/generator-swoopstr-gulp",
   "scripts": {

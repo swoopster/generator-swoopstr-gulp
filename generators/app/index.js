@@ -85,6 +85,6 @@ module.exports = yeoman.generators.Base.extend({
       'karma','karma-jasmine', 'karma-phantomjs-launcher'
     ];
 
-    this.bowerInstall(dependencies, {saveDev: true});
+    this.npmInstall(dependencies, {saveDev: true});
   }
 });
