@@ -24,9 +24,5 @@
     "yargs": "^4.2.0"
   },
   "repository": "/generator-swoopstr-gulp",
-  "scripts": {
-    "prepublish": "gulp prepublish",
-    "test": "gulp"
-  },
   "private": true
 }
