@@ -10,7 +10,8 @@
   },
   "files": [
     "generators/app",
-    "generators/karma"
+    "generators/karma",
+    "generators/lint"
   ],
   "main": "generators/index.js",
   "keywords": [
