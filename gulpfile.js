@@ -7,6 +7,7 @@ var mocha = require('gulp-mocha');
 var istanbul = require('gulp-istanbul');
 var nsp = require('gulp-nsp');
 var plumber = require('gulp-plumber');
+var exec =  require('child_process').exec;
 
 var fs = require('fs');
 var argv = require('yargs').argv;
@@ -61,7 +62,8 @@ gulp.task('prepublish', ['nsp']);
 gulp.task('default', ['static', 'test']);
 
 
-gulp.task('bump', ['test'], function()
+
+gulp.task('bump', function()
 {
   var type = 'patch';
   if(argv.minor){
@@ -71,11 +73,22 @@ gulp.task('bump', ['test'], function()
   }else if(argv.prerelease){
     type = 'prerelease';
   }
-  gulp.src(['package.json', 'bower.json', 'component.json'])
+
+  gulp.src('./package.json')
     .pipe(bump({type:type}))
     .pipe(gulp.dest('./'))
-    .pipe(if_else(typeof argv.m === 'string' ,function(){ return git.commit(argv.m)}, function(){ return git.commit('bumps package version')}))
+    .pipe(if_else(typeof argv.m === 'string' ,
+      function(){ return git.commit(argv.m)},
+      function(){ return git.commit('bumps package version')})
+    )
     .pipe(filter('package.json'))
-    .pipe(tag_version());
+    .pipe(if_else(typeof argv.v === 'string',
+      function(){
+        return tag_version({version: argv.v})
+      },
+      function(){
+        return tag_version()
+      }
+    ));
 
 });

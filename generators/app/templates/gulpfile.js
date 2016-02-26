@@ -21,11 +21,22 @@ gulp.task('bump', function()
   }else if(argv.prerelease){
     type = 'prerelease';
   }
-  gulp.src(['package.json', 'bower.json', 'component.json'])
+
+  gulp.src('./package.json')
     .pipe(bump({type:type}))
     .pipe(gulp.dest('./'))
-    .pipe(if_else(typeof argv.m === 'string' ,function(){ return git.commit(argv.m)}, function(){ return git.commit('bumps package version')}))
+    .pipe(if_else(typeof argv.m === 'string' ,
+      function(){ return git.commit(argv.m)},
+      function(){ return git.commit('bumps package version')})
+    )
     .pipe(filter('package.json'))
-    .pipe(tag_version());
+    .pipe(if_else(typeof argv.v === 'string',
+      function(){
+        return tag_version({version: argv.v})
+      },
+      function(){
+        return tag_version()
+      }
+    ));
 
 });
