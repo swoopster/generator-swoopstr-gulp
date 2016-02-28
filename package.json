@@ -11,7 +11,8 @@
   "files": [
     "generators/app",
     "generators/karma",
-    "generators/lint"
+    "generators/lint",
+    "generators/angular"
   ],
   "main": "generators/index.js",
   "keywords": [

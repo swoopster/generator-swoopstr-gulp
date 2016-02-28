@@ -10,6 +10,14 @@ var git = require('gulp-git');
 var if_else = require('gulp-if-else');
 
 
+gulp.task('test', function(done)
+{
+  return Server.start({
+    configFile: __dirname + '/karma.conf.js',
+    singleRun: true
+  }, done);
+});
+
 gulp.task('bump', function()
 {
   var type = 'patch';

@@ -63,7 +63,7 @@ module.exports = yeoman.generators.Base.extend({
     this.copy("_.bowerrc", '.bowerrc');
 
     mkdirp.sync(this.destinationPath("src/"));
-    mkdirp.sync(this.destinationPath("tests/"));
+    mkdirp.sync(this.destinationPath("test/"));
     mkdirp.sync(this.destinationPath("bower_components/"));
 
 

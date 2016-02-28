@@ -12,6 +12,7 @@
   },
   "devDependencies": {
     "bower": "^1.7.7",
+    "gulp": "^3.9.1",
     "gulp-bump": "^1.0.0",
     "gulp-change": "^1.0.0",
     "gulp-delete-file": "^1.0.2",

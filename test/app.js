@@ -23,7 +23,7 @@ describe('generator-swoopstr-gulp:app', function () {
       '.bowerrc',
       'bower.json',
       "src/",
-      "tests/",
+      "test/",
       "bower_components/"
     ]);
   });
