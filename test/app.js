@@ -12,7 +12,8 @@ describe('generator-swoopstr-gulp:app', function () {
         bowerDesc: "",
         bowerURL: "https://test.de",
         fullName: "Max Mustermann",
-        email: "max@test.de"
+        email: "max@test.de",
+        framework: ['AngularJs']
       })
       .on('end', done);
   });
@@ -36,7 +37,13 @@ describe('generator-swoopstr-gulp:app', function () {
       ['bower.json', '"name": "Max Mustermann"'],
       ['bower.json', '"Max Mustermann max@test.de"']
     ]);
-  })
+  });
+
+  it('test angular modifications', function(){
+    assert.fileContent([
+      ['gulpfile.js', "srcFiles : ['src/**/*.module.js', 'src/**/*!(module).js']"]
+      ]);
+  });
 
 
   it('test bowerfile creation', function(){

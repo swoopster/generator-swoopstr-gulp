@@ -19,7 +19,7 @@ describe('generator-swoopstr-gulp:karma', function () {
 
   it('manipulate karma.conf', function (){
     assert.fileContent([
-      ['karma.conf.js', "'test/test-main.js',\n\t\t{pattern: 'bower_components/angular/angular.min.js', included: true},\n\t\t{pattern: 'bower_components/angular-mocks/angular-mocks.js', included: true}"]
+      ['karma.conf.js', "{pattern: 'bower_components/angular/angular.min.js', included: true},\n\t\t{pattern: 'bower_components/angular-mocks/angular-mocks.js', included: true}"]
     ]);
   })
 

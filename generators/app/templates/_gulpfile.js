@@ -8,7 +8,25 @@ var filter = require("gulp-filter");
 var tag_version = require('gulp-tag-version');
 var git = require('gulp-git');
 var if_else = require('gulp-if-else');
+var fs = require('fs');
+var uglify = require('gulp-uglify');
+var concat = require('gulp-concat');
+var Server = require('karma').Server;
 
+var config = {
+  distFolder : 'dist',
+  srcFiles : ['src/**/*.js']
+};
+
+gulp.task('build-js', function()
+{
+  gulp.src(config.srcFiles)
+    .pipe(concat(JSON.parse(fs.readFileSync('./package.json')).name + '.js'))
+    .pipe(gulp.dest(config.distFolder))
+    .pipe(uglify())
+    .pipe(rename({suffix: '.min'}))
+    .pipe(gulp.dest(config.distFolder));
+});
 
 gulp.task('test', function(done)
 {
@@ -47,3 +65,5 @@ gulp.task('bump', function()
     ));
 
 });
+
+gulp.task('release', ['build-js', 'bump']);

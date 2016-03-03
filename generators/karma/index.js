@@ -45,9 +45,10 @@ module.exports = yeoman.generators.Base.extend({
           me.bowerInstall('angular-mock', {saveDev: true});
           var path = me.destinationPath('karma.conf.js');
           fs.readFile(path, 'utf8', function(err, data){
-            var result = data.replace("'test/test-main.js',", "'test/test-main.js',\n\t\t{pattern: 'bower_components/angular/angular.min.js', included: true},\n\t\t{pattern: 'bower_components/angular-mocks/angular-mocks.js', included: true},");
+            var result = data.replace("'src/**/*.module.js',", "{pattern: 'bower_components/angular/angular.min.js', included: true},\n\t\t{pattern: 'bower_components/angular-mocks/angular-mocks.js', included: true},'src/**/*.module.js',");
            fs.writeFile(path, result, 'utf8')
           });
+
           break;
       }
 

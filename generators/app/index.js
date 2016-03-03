@@ -3,6 +3,7 @@ var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var yosay = require('yosay');
 var mkdirp = require('mkdirp');
+var fs = require('fs');
 
 module.exports = yeoman.generators.Base.extend({
   prompting: function () {
@@ -49,12 +50,12 @@ module.exports = yeoman.generators.Base.extend({
       this.fullName = props.fullName;
       this.email = props.email;
       this.frameworks = props.framework;
-
       done();
     }.bind(this));
   },
 
   writing: function () {
+    var me = this;
     //copy gulpfile
     this.fs.copy(
       this.templatePath('_gulpfile.js'),
@@ -79,6 +80,21 @@ module.exports = yeoman.generators.Base.extend({
 
     this.template("_bower.json", "bower.json", context);
     this.template("_package.json", "package.json", context);
+
+    //modify src data for correct ordering
+    //@todo move to generator-swoopstr-angular
+    this.frameworks.forEach(function(framework)
+    {
+      switch(framework){
+        case 'AngularJs':
+          var path = me.destinationPath('gulpfile.js');
+          var data = me.fs.read(path, 'utf8');
+          var result = data.replace("srcFiles : ['src/**/*.js']", "srcFiles : ['src/**/*.module.js', 'src/**/*!(module).js']");
+          me.fs.write(path, result);
+          break;
+      }
+    });
+
   },
 
   install: function () {
@@ -91,7 +107,7 @@ module.exports = yeoman.generators.Base.extend({
 
   invokeSubGenerators: function() {
     if(typeof this.frameworks !== 'undefined'){
-      this.invokeSubGenerators('swoopstr-gulp:karma', {nested: true, appName: this.appName}).withArguments({'frameworks': this.frameworks})
+      //this.invokeSubGenerators('swoopstr-gulp:karma', {nested: true, appName: this.appName}).withArguments({'frameworks': this.frameworks})
     }
   }
 
